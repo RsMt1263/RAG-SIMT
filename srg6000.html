@@ -354,19 +354,24 @@ function autoScale() {
 document.addEventListener('fullscreenchange', autoScale);
 
 function toggleFullScreen(event) {
-    if (event) event.stopPropagation(); // Aby to nepíplo dvakrát
+    if (event) event.stopPropagation();
+    
+    const doc = document.documentElement;
+    const frame = document.querySelector('.computer-frame');
 
-    // Ak fullscreen NIE JE zapnutý, tak ho zapni
     if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(err => {
-            console.log(`Chyba: ${err.message}`);
-        });
-    } 
-    // Inak (ak už zapnutý JE), tak ho vypni
-    else {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        }
+        // Zapnutie Fullscreenu a skrytie systémovej lišty na tablete
+        if (doc.requestFullscreen) { doc.requestFullscreen(); }
+        else if (doc.webkitRequestFullscreen) { doc.webkitRequestFullscreen(); }
+
+        // Automatické zväčšenie (scale) podľa veľkosti tvojho tabletu
+        const scale = Math.min(window.innerWidth / 1000, window.innerHeight / 667);
+        frame.style.transform = `scale(${scale})`; 
+        frame.style.transformOrigin = 'center center';
+    } else {
+        // Vypnutie Fullscreenu a návrat do pôvodnej veľkosti
+        if (document.exitFullscreen) { document.exitFullscreen(); }
+        frame.style.transform = 'scale(1)';
     }
 }
 
