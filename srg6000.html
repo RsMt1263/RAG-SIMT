@@ -250,21 +250,35 @@
         updateDisplay();
     }
 
-    function updateDisplay() {
+function updateDisplay() {
         if (!povolenyPristup || !zastavky) return;
         const current = zastavky[currentIndex];
+        
+        // Základné info
         document.getElementById('direction').innerText = aktivnySpoj.smer;
         document.getElementById('stop-name').innerText = current.n;
         document.getElementById('street-name').innerText = current.u;
         document.querySelector('.line-info').innerText = aktivnySpoj.L;
         document.querySelector('.stop-count').innerHTML = `<span>${currentIndex}</span>/${zastavky.length - 1}`;
-        document.getElementById('p1').innerText = currentIndex > 0 ? zastavky[currentIndex-1].n : "-------";
-        document.getElementById('n1').innerText = currentIndex < zastavky.length - 1 ? zastavky[currentIndex+1].n : "-------";
+
+        // --- PREDCHÁDZAJÚCE ZASTÁVKY ---
+        // p1: jedna dozadu
+        document.getElementById('p1').innerText = currentIndex > 0 ? zastavky[currentIndex - 1].n : "-------";
+        // p2: dve dozadu
+        document.getElementById('p2').innerText = currentIndex > 1 ? zastavky[currentIndex - 2].n : "-------";
+
+        // --- NASLEDUJÚCE ZASTÁVKY ---
+        // n1: jedna dopredu
+        document.getElementById('n1').innerText = currentIndex < zastavky.length - 1 ? zastavky[currentIndex + 1].n : "-------";
+        // n2: dve dopredu
+        document.getElementById('n2').innerText = currentIndex < zastavky.length - 2 ? zastavky[currentIndex + 2].n : "-------";
+
+        // Posun markera na lište
         let step = 620 / (zastavky.length - 1 || 1);
         document.getElementById('marker').style.left = (170 + (currentIndex * step)) + "px";
+        
         updateDelay();
     }
-
     function nasledujuciSpoj() {
         if (!povolenyPristup) return;
         pipni();
