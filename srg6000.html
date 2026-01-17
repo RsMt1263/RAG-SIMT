@@ -4,6 +4,28 @@
     <meta charset="UTF-8">
     <title>R&G SRG-6000P Profesionál</title>
     <style>
+
+    .fullscreen-btn {
+            position: absolute;
+            bottom: 10px;      /* Presne nad logom R&G */
+            left: 20px;
+            width: 140px;      
+            height: 55px;      
+            background-color: rgba(255, 0, 0, 0.4); /* Silnejšia červená */
+            border: 3px solid red;                 /* Hrubý červený rám */
+            cursor: pointer;
+            z-index: 999;
+            border-radius: 5px;
+            
+            /* Pulzovanie, aby si ho hneď videl */
+            animation: blikanie 1s infinite alternate;
+        }
+
+        @keyframes blikanie {
+            from { opacity: 0.4; }
+            to { opacity: 1; }
+        }
+        
         body {
             background-color: #000;
             margin: 0;
@@ -131,6 +153,7 @@
     </style>
 </head>
 <body>
+    <div class="fullscreen-btn" onclick="toggleFullScreen()" title="Klikni pre Fullscreen"></div>
 
     <div class="computer-frame" onclick="pipni()">
         <div id="clock">00:00:00</div>
@@ -294,6 +317,18 @@ function updateDisplay() {
         if (currentIndex >= zastavky.length) currentIndex = zastavky.length - 1;
         updateDisplay();
     }
+
+function toggleFullScreen() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+            console.log(`Chyba: ${err.message}`);
+        });
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        }
+    }
+}
 
 function updateDelay() {
     if (!povolenyPristup) return;
