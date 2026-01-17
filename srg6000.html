@@ -5,27 +5,41 @@
     <title>R&G SRG-6000P Profesionál</title>
     <style>
 
-    .fullscreen-btn {
+/* --- ÚPLNE NEVIDITEĽNÉ Fullscreen tlačidlo --- */
+        .fullscreen-btn {
             position: absolute;
-            bottom: 10px;      /* Presne nad logom R&G */
+            bottom: 10px;      
             left: 20px;
             width: 140px;      
             height: 55px;      
-            background-color: rgba(255, 0, 0, 0.4); /* Silnejšia červená */
-            border: 3px solid red;                 /* Hrubý červený rám */
+            /* Priehľadnosť nastavená na 0 (neviditeľné) */
+            background-color: rgba(255, 0, 0, 0); 
+            /* Rámik odstránený */
+            border: none;                 
             cursor: pointer;
             z-index: 999;
             border-radius: 5px;
             
-            /* Pulzovanie, aby si ho hneď videl */
-            animation: blikanie 1s infinite alternate;
+            /* Animácia blikania odstránená, aby to nerušilo */
+            animation: none;
         }
+
+    /* Keď je prehliadač vo fullscreene, zväčši celý rám */
+:fullscreen .computer-frame {
+    transform: scale(1.4); /* Tu môžeš zmeniť číslo (napr. 1.2 alebo 1.5) podľa tvojho monitora */
+    transform-origin: center center;
+}
+
+/* Podpora pre Chrome a Safari */
+:-webkit-full-screen .computer-frame {
+    transform: scale(1.4);
+}
 
         @keyframes blikanie {
             from { opacity: 0.4; }
             to { opacity: 1; }
         }
-        
+
         body {
             background-color: #000;
             margin: 0;
@@ -154,6 +168,10 @@
 </head>
 <body>
     <div class="fullscreen-btn" onclick="toggleFullScreen()" title="Klikni pre Fullscreen"></div>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <div class="computer-frame" onclick="pipni()">
         <div id="clock">00:00:00</div>
@@ -318,12 +336,34 @@ function updateDisplay() {
         updateDisplay();
     }
 
-function toggleFullScreen() {
+// Táto funkcia sa spustí vždy, keď sa zmení veľkosť okna alebo zapne fullscreen
+function autoScale() {
+    const frame = document.querySelector('.computer-frame');
+    if (document.fullscreenElement) {
+        // Vypočíta pomer medzi monitorom a tvojím rámom (1000px)
+        const scale = Math.min(window.innerWidth / 1000, window.innerHeight / 667);
+        frame.style.transform = `scale(${scale})`;
+        frame.style.transformOrigin = 'center center';
+    } else {
+        // Keď vypneš fullscreen, vráti sa do pôvodnej veľkosti
+        frame.style.transform = 'scale(1)';
+    }
+}
+
+// Sledujeme zmenu fullscreenu
+document.addEventListener('fullscreenchange', autoScale);
+
+function toggleFullScreen(event) {
+    if (event) event.stopPropagation(); // Aby to nepíplo dvakrát
+
+    // Ak fullscreen NIE JE zapnutý, tak ho zapni
     if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen().catch(err => {
             console.log(`Chyba: ${err.message}`);
         });
-    } else {
+    } 
+    // Inak (ak už zapnutý JE), tak ho vypni
+    else {
         if (document.exitFullscreen) {
             document.exitFullscreen();
         }
