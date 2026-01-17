@@ -360,18 +360,24 @@ function toggleFullScreen(event) {
     const frame = document.querySelector('.computer-frame');
 
     if (!document.fullscreenElement) {
-        // Zapnutie Fullscreenu a skrytie systémovej lišty na tablete
-        if (doc.requestFullscreen) { doc.requestFullscreen(); }
-        else if (doc.webkitRequestFullscreen) { doc.webkitRequestFullscreen(); }
-
-        // Automatické zväčšenie (scale) podľa veľkosti tvojho tabletu
-        const scale = Math.min(window.innerWidth / 1000, window.innerHeight / 667);
-        frame.style.transform = `scale(${scale})`; 
-        frame.style.transformOrigin = 'center center';
+        // Tento príkaz sa pokúša o "Immersive Mode" na Androide
+        const requestMethod = doc.requestFullscreen || doc.webkitRequestFullscreen;
+        
+        if (requestMethod) {
+            requestMethod.call(doc).then(() => {
+                // Vynútené zväčšenie na maximum
+                const scale = Math.max(window.innerWidth / 1000, window.innerHeight / 667);
+                frame.style.transform = `scale(${scale})`;
+                frame.style.transformOrigin = 'center center';
+                
+                // Skrytie kurzora pre lepší pocit z dotyku
+                document.body.style.cursor = 'none';
+            });
+        }
     } else {
-        // Vypnutie Fullscreenu a návrat do pôvodnej veľkosti
         if (document.exitFullscreen) { document.exitFullscreen(); }
         frame.style.transform = 'scale(1)';
+        document.body.style.cursor = 'default';
     }
 }
 
