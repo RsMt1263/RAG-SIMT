@@ -102,30 +102,40 @@
     <audio id="click-sound" src="zvuk1.wav" preload="auto"></audio>
 
 <script>
-    // --- TVOJE DÁTA (Trasy a CP) ---
-    const trasaSmerSebastova = [{n: "Solivar", u: "Solivarská ul.", min: 0}, {n: "Múzeum Solivar", u: "Smetanova ul.", min: 1}, {n: "Bohúňova", u: "Bohúňova ul.", min: 2}, {n: "Solivarská", u: "Solivarská ul.", min: 3}, {n: "Škára", u: "Arm. gen. Svobodu", min: 5}, {n: "Železničná stanica", u: "Masarykova ul.", min: 7}, {n: "Čierny most", u: "Masarykova ul.", min: 9}, {n: "Divadlo J. Záborského", u: "Grešova ul.", min: 11}, {n: "Na Hlavnej", u: "Hlavná ul.", min: 12}, {n: "Trojica", u: "Hlavná ul.", min: 14}, {n: "Duklianska", u: "Duklianska ul.", min: 16}, {n: "Rázcestie Kúty", u: "Prešovská ul.", min: 18}, {n: "Dopravný podnik", u: "Bardejovská ul.", min: 19}, {n: "Šarišské Lúky", u: "Bardejovská ul.", min: 21}, {n: "Vranovská", u: "Vranovská ul.", min: 22}, {n: "Pažica", u: "Vranovská ul.", min: 23}, {n: "Nižná Šebastová", u: "Vranovská ul.", min: 24}];
-    const trasaSmerSolivar = [{n: "Nižná Šebastová", u: "Vranovská ul.", min: 0}, {n: "Pažica", u: "Vranovská ul.", min: 1}, {n: "Vranovská", u: "Vranovská ul.", min: 2}, {n: "Šarišské Lúky", u: "Bardejovská ul.", min: 3}, {n: "Dopravný podnik", u: "Bardejovská ul.", min: 5}, {n: "Rázcestie Kúty", u: "Prešovská ul.", min: 6}, {n: "Duklianska", u: "Duklianska ul.", min: 8}, {n: "Trojica", u: "Hlavná ul.", min: 10}, {n: "Na Hlavnej", u: "Hlavná ul.", min: 12}, {n: "Veľká pošta", u: "Masarykova ul.", min: 14}, {n: "Čierny most", u: "Masarykova ul.", min: 15}, {n: "Železničná stanica", u: "Masarykova ul.", min: 17}, {n: "Škára", u: "Arm. gen. Svobodu", min: 19}, {n: "Solivarská", u: "Solivarská ul.", min: 21}, {n: "Bohúňova", u: "Bohúňova ul.", min: 22}, {n: "Múzeum Solivar", u: "Smetanova ul.", min: 23}, {n: "Solivar", u: "Solivarská ul.", min: 24}];
-    const trasaNajazd = [{n: "Garáž", u: "Bardejovská ul.", min: 0}, {n: "Solivar", u: "Solivarská ul.", min: 7}];
-    const trasaDojazd = [{n: "Nižná Šebastová", u: "Vranovská ul.", min: 0}, {n: "Garáž", u: "Bardejovská ul.", min: 20}];
+    // --- TVOJE DÁTA (Nové Trasy pre kurz 11/43) ---
+    const trasaNajazd = [{n: "Garáž", u: "Bardejovská ul.", min: 0}, {n: "Bajkalská", u: "Bajkalská ul.", min: 10}];
+    const trasaDojazd = [{n: "Dopravný podnik", u: "Bardejovská ul.", min: 0}, {n: "Garáž", u: "Bardejovská ul.", min: 1}];
+
+    const trasaL5_OM = [{n: "Bajkalská", u: "Bajkalská ul.", min: 0}, {n: "Veterinárna nemocnica", u: "Bajkalská ul.", min: 1}, {n: "Rázcestie Šidlovec", u: "Sabinovská ul.", min: 2}, {n: "Pod Skalkou", u: "Sabinovská ul.", min: 3}, {n: "Mičurinova", u: "Sabinovská ul.", min: 4}, {n: "Sabinovská", u: "Sabinovská ul.", min: 5}, {n: "Trojica", u: "Hlavná ul.", min: 8}, {n: "Na Hlavnej", u: "Hlavná ul.", min: 10}, {n: "Veľká pošta", u: "Masarykova ul.", min: 12}, {n: "Čierny most", u: "Masarykova ul.", min: 13}, {n: "Škultétyho", u: "Škultétyho ul.", min: 15}, {n: "Prešovská univerzita", u: "Ul. 17. novembra", min: 16}, {n: "Duchnovičovo námestie", u: "Ul. 17. novembra", min: 17}, {n: "Námestie mládeže", u: "Obrancov mieru", min: 18}, {n: "Obrancov mieru", u: "Obrancov mieru", min: 19}];
+    const trasaL5_BA = [{n: "Obrancov mieru", u: "Obrancov mieru", min: 0}, {n: "Námestie mládeže", u: "Obrancov mieru", min: 1}, {n: "Duchnovičovo námestie", u: "Ul. 17. novembra", min: 2}, {n: "Prešovská univerzita", u: "Ul. 17. novembra", min: 3}, {n: "Škultétyho", u: "Škultétyho ul.", min: 4}, {n: "Čierny most", u: "Masarykova ul.", min: 6}, {n: "Veľká pošta", u: "Masarykova ul.", min: 7}, {n: "Na Hlavnej", u: "Hlavná ul.", min: 9}, {n: "Trojica", u: "Hlavná ul.", min: 11}, {n: "Sabinovská", u: "Sabinovská ul.", min: 14}, {n: "Mičurinova", u: "Sabinovská ul.", min: 15}, {n: "Pod Skalkou", u: "Sabinovská ul.", min: 16}, {n: "Rázcestie Šidlovec", u: "Sabinovská ul.", min: 17}, {n: "Veterinárna nemocnica", u: "Bajkalská ul.", min: 18}, {n: "Bajkalská", u: "Bajkalská ul.", min: 19}];
+    
+    const trasaL2_BUD = [{n: "Obrancov mieru", u: "Obrancov mieru", min: 0}, {n: "Poliklinika", u: "Levočská ul.", min: 2}, {n: "Trojica", u: "Hlavná ul.", min: 3}, {n: "Na Hlavnej", u: "Hlavná ul.", min: 5}, {n: "Divadlo J. Záborského", u: "Grešova ul.", min: 7}, {n: "Čierny most", u: "Masarykova ul.", min: 9}, {n: "Štúrova", u: "Štúrova ul.", min: 11}, {n: "Priemyselné centrum", u: "Budovateľská ul.", min: 12}, {n: "Pekárne", u: "Budovateľská ul.", min: 13}, {n: "Budovateľská", u: "Budovateľská ul.", min: 14}];
+    const trasaL2_OM = [{n: "Budovateľská", u: "Budovateľská ul.", min: 0}, {n: "Pekárne", u: "Budovateľská ul.", min: 1}, {n: "Priemyselné centrum", u: "Budovateľská ul.", min: 2}, {n: "Štúrova", u: "Štúrova ul.", min: 3}, {n: "Čierny most", u: "Masarykova ul.", min: 5}, {n: "Divadlo J. Záborského", u: "Grešova ul.", min: 6}, {n: "Na Hlavnej", u: "Hlavná ul.", min: 7}, {n: "Trojica", u: "Hlavná ul.", min: 9}, {n: "Poliklinika", u: "Levočská ul.", min: 11}, {n: "Obrancov mieru", u: "Obrancov mieru", min: 13}];
+    
+    const trasaL7_DP = [{n: "Budovateľská", u: "Budovateľská ul.", min: 0}, {n: "Pekárne", u: "Budovateľská ul.", min: 1}, {n: "Priemyselné centrum", u: "Budovateľská ul.", min: 2}, {n: "Štúrova", u: "Štúrova ul.", min: 3}, {n: "Čierny most", u: "Masarykova ul.", min: 5}, {n: "Divadlo J. Záborského", u: "Grešova ul.", min: 7}, {n: "Na Hlavnej", u: "Hlavná ul.", min: 8}, {n: "Trojica", u: "Hlavná ul.", min: 10}, {n: "Duklianska", u: "Duklianska ul.", min: 12}, {n: "Rázcestie Kúty", u: "Prešovská ul.", min: 14}, {n: "Dopravný podnik", u: "Bardejovská ul.", min: 20}];
 
     const cestovnyPoriadok = [
-        { L: "#", smer: "Technologická Jazda", odchod: "14:00", trasa: trasaNajazd },
-        { L: "1", smer: "Nižná Šebastová", odchod: "14:07", trasa: trasaSmerSebastova },
-        { L: "1", smer: "Solivar", odchod: "14:32", trasa: trasaSmerSolivar },
-        { L: "1", smer: "Nižná Šebastová", odchod: "15:37", trasa: trasaSmerSebastova },
-        { L: "1", smer: "Solivar", odchod: "16:02", trasa: trasaSmerSolivar },
-        { L: "1", smer: "Nižná Šebastová", odchod: "16:37", trasa: trasaSmerSebastova },
-        { L: "1", smer: "Solivar", odchod: "17:02", trasa: trasaSmerSolivar },
-        { L: "1", smer: "Nižná Šebastová", odchod: "17:37", trasa: trasaSmerSebastova },
-        { L: "1", smer: "Solivar", odchod: "18:02", trasa: trasaSmerSolivar },
-        { L: "1", smer: "Nižná Šebastová", odchod: "18:37", trasa: trasaSmerSebastova },
-        { L: "1", smer: "Solivar", odchod: "19:02", trasa: trasaSmerSolivar },
-        { L: "1", smer: "Nižná Šebastová", odchod: "20:07", trasa: trasaSmerSebastova },
-        { L: "1", smer: "Solivar", odchod: "20:32", trasa: trasaSmerSolivar },
-        { L: "1", smer: "Nižná Šebastová", odchod: "21:07", trasa: trasaSmerSebastova },
-        { L: "1", smer: "Solivar", odchod: "21:32", trasa: trasaSmerSolivar },
-        { L: "1", smer: "Nižná Šebastová", odchod: "22:07", trasa: trasaSmerSebastova },
-        { L: "#", smer: "Technologická Jazda", odchod: "22:31", trasa: trasaDojazd }
+        { L: "#", smer: "Technologická Jazda", odchod: "13:15", trasa: trasaNajazd },
+        { L: "5", smer: "Obrancov mieru", odchod: "13:25", trasa: trasaL5_OM },
+        { L: "2", smer: "Budovateľská", odchod: "13:44", trasa: trasaL2_BUD },
+        { L: "2", smer: "Obrancov mieru", odchod: "14:35", trasa: trasaL2_OM },
+        { L: "5", smer: "Bajkalská", odchod: "14:48", trasa: trasaL5_BA },
+        { L: "5", smer: "Obrancov mieru", odchod: "15:25", trasa: trasaL5_OM },
+        { L: "2", smer: "Budovateľská", odchod: "15:44", trasa: trasaL2_BUD },
+        { L: "2", smer: "Obrancov mieru", odchod: "16:35", trasa: trasaL2_OM },
+        { L: "5", smer: "Bajkalská", odchod: "16:48", trasa: trasaL5_BA },
+        { L: "5", smer: "Obrancov mieru", odchod: "17:25", trasa: trasaL5_OM },
+        { L: "2", smer: "Budovateľská", odchod: "17:44", trasa: trasaL2_BUD },
+        { L: "2", smer: "Obrancov mieru", odchod: "18:35", trasa: trasaL2_OM },
+        { L: "5", smer: "Bajkalská", odchod: "18:48", trasa: trasaL5_BA },
+        { L: "5", smer: "Obrancov mieru", odchod: "19:25", trasa: trasaL5_OM },
+        { L: "2", smer: "Budovateľská", odchod: "19:44", trasa: trasaL2_BUD },
+        { L: "2", smer: "Obrancov mieru", odchod: "20:05", trasa: trasaL2_OM },
+        { L: "5", smer: "Bajkalská", odchod: "20:18", trasa: trasaL5_BA },
+        { L: "5", smer: "Obrancov mieru", odchod: "20:55", trasa: trasaL5_OM },
+        { L: "2", smer: "Budovateľská", odchod: "21:14", trasa: trasaL2_BUD },
+        { L: "7", smer: "Dopravný podnik", odchod: "21:35", trasa: trasaL7_DP },
+        { L: "#", smer: "Technologická Jazda", odchod: "21:55", trasa: trasaDojazd }
     ];
 
     let indexSpoja = 0; 
@@ -136,12 +146,11 @@
     // --- FUNKCIA PRE AUTOMATICKÉ ZVÄČŠENIE ---
     function zvacsiPanel() {
         const frame = document.getElementById('mainFrame');
-        // Vypočíta najlepšie zväčšenie pre tvoj tablet (nechá 5% rezervu)
+        if (!frame) return;
         const scale = Math.min(window.innerWidth / 1000, window.innerHeight / 700) * 0.95;
         frame.style.transform = `scale(${scale})`;
     }
 
-    // Spustí sa pri načítaní a pri každej zmene otočenia tabletu
     window.addEventListener('resize', zvacsiPanel);
 
     function pipni() {
@@ -152,13 +161,14 @@
     function prihlasenie() {
         const l = localStorage.getItem('srg_linka');
         const p = localStorage.getItem('srg_poradie');
-        if (l === "11" && p === "42") {
+        // Nastavené na kód 11/43
+        if (l === "11" && p === "43") {
             povolenyPristup = true;
             nacitajDataSpoja();
         } else {
             document.getElementById('direction').innerText = "NEPLATNÝ KURZ";
         }
-        zvacsiPanel(); // Zväčší panel hneď po prihlásení
+        zvacsiPanel();
     }
 
     function nacitajDataSpoja() {
@@ -229,11 +239,10 @@
     }
 
     setInterval(() => {
-        document.getElementById('clock').innerText = new Date().toLocaleTimeString('sk-SK');
+        const clockEl = document.getElementById('clock');
+        if (clockEl) clockEl.innerText = new Date().toLocaleTimeString('sk-SK');
         if (povolenyPristup) updateDelay();
     }, 1000);
 
     window.onload = prihlasenie;
 </script>
-</body>
-</html>
