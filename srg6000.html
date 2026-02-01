@@ -12,13 +12,12 @@
             margin: 0;
             display: flex;
             justify-content: center;
-            /* Zarovnanie na vrch, aby sa pri zväčšení panel neodsunul */
             align-items: flex-start; 
             height: 100vh;
             font-family: 'Arial', sans-serif;
             font-weight: bold;
             color: white;
-            overflow: auto; /* Ak by bol panel väčší ako displej, dá sa ním hýbať */
+            overflow: auto;
         }
 
         .computer-frame {
@@ -28,7 +27,6 @@
             background-size: contain;
             background-repeat: no-repeat;
             position: relative;
-            /* Plynulý prechod pri zmene veľkosti */
             transition: transform 0.2s ease-in-out;
             transform-origin: top center; 
             margin-top: 20px;
@@ -102,19 +100,62 @@
     <audio id="click-sound" src="zvuk1.wav" preload="auto"></audio>
 
 <script>
-    // --- TVOJE DÁTA (Nové Trasy pre kurz 11/43) ---
+    // ==========================================
+    // 1. DEFINÍCIA TRÁS (Základné stavebné bloky)
+    // ==========================================
+    
+    // Technologické jazdy
+    const trasaG_Stanica = [{n: "Garáž", u: "Bardejovská ul.", min: 0}, {n: "Železničná stanica", u: "Masarykova ul.", min: 5}];
+    const trasaNalepku_Stanica = [{n: "Kapitána Nálepku", u: "Kpt. Nálepku", min: 0}, {n: "Železničná stanica", u: "Masarykova ul.", min: 9}];
+    const trasaNemocnica_G = [{n: "Fakultná nemocnica", u: "Hollého ul.", min: 0}, {n: "Garáž", u: "Bardejovská ul.", min: 18}];
+    const trasaNemocnica_DJZ = [{n: "Fakultná nemocnica", u: "Hollého ul.", min: 0}, {n: "Divadlo J. Záborského", u: "Grešova ul.", min: 8}];
+    const trasaG_S3 = [{n: "Garáž", u: "Bardejovská ul.", min: 0}, {n: "Sídlisko III", u: "Prostějovská ul.", min: 2}];
+    const trasaS3_G = [{n: "Sídlisko III", u: "Prostějovská ul.", min: 0}, {n: "Garáž", u: "Bardejovská ul.", min: 1}];
     const trasaNajazd = [{n: "Garáž", u: "Bardejovská ul.", min: 0}, {n: "Bajkalská", u: "Bajkalská ul.", min: 10}];
     const trasaDojazd = [{n: "Dopravný podnik", u: "Bardejovská ul.", min: 0}, {n: "Garáž", u: "Bardejovská ul.", min: 1}];
 
+    // Linkové trasy
+    const trasaL43_Nemocnica = [{n: "Železničná stanica", u: "Masarykova ul.", min: 0}, {n: "Štúrova", u: "Štúrova ul.", min: 2}, {n: "Priemyselné centrum", u: "Budovateľská ul.", min: 3}, {n: "Pekárne", u: "Budovateľská ul.", min: 4}, {n: "Pod Kamennou baňou", u: "Pražská ul.", min: 7}, {n: "Zimný štadión", u: "Pod Kalváriou", min: 8}, {n: "Pod Kalváriou", u: "Pod Kalváriou", min: 9}, {n: "SOŠ lesnícka", u: "Kollárova ul.", min: 10}, {n: "Kollárova", u: "Kollárova ul.", min: 11}, {n: "Sázavského", u: "Odborárska ul.", min: 12}, {n: "Odborárska", u: "Odborárska ul.", min: 13}, {n: "Marka Čulena", u: "M. Čulena", min: 14}, {n: "Volgogradská", u: "Volgogradská ul.", min: 16}, {n: "Nám. Kráľovnej pokoja", u: "Volgogradská ul.", min: 17}, {n: "VUKOV", u: "Volgogradská ul.", min: 18}, {n: "Centrum", u: "Prostějovská ul.", min: 20}, {n: "Prostějovská", u: "Prostějovská ul.", min: 21}, {n: "Bajkalská", u: "Bajkalská ul.", min: 22}, {n: "Veterinárna nem.", u: "Bajkalská ul.", min: 23}, {n: "Rázcestie Šidlovec", u: "Sabinovská ul.", min: 24}, {n: "Pod Skalkou", u: "Sabinovská ul.", min: 25}, {n: "Mičurinova", u: "Sabinovská ul.", min: 26}, {n: "Sabinovská, futbal aréna", u: "Sabinovská ul.", min: 27}, {n: "Duklianska", u: "Duklianska ul.", min: 30}, {n: "Šafárikova, cintorín", u: "Šafárikova ul.", min: 31}, {n: "Detská nemocnica", u: "Sládkovičova ul.", min: 32}, {n: "Fakultná nemocnica", u: "Hollého ul.", min: 33}, {n: "Kapitána Nálepku", u: "Kpt. Nálepku", min: 41}];
+    const trasaL43_Nem = [{n: "Železničná stanica", u: "Masarykova ul.", min: 0}, {n: "Štúrova", u: "Štúrova ul.", min: 2}, {n: "Priemyselné centrum", u: "Budovateľská ul.", min: 3}, {n: "Pekárne", u: "Budovateľská ul.", min: 4}, {n: "Pod Kamennou baňou", u: "Pražská ul.", min: 7}, {n: "Zimný štadión", u: "Pod Kalváriou", min: 8}, {n: "Pod Kalváriou", u: "Pod Kalváriou", min: 9}, {n: "SOŠ lesnícka", u: "Kollárova ul.", min: 10}, {n: "Kollárova", u: "Kollárova ul.", min: 11}, {n: "Sázavského", u: "Odborárska ul.", min: 12}, {n: "Odborárska", u: "Odborárska ul.", min: 13}, {n: "Marka Čulena", u: "M. Čulena", min: 14}, {n: "Volgogradská", u: "Volgogradská ul.", min: 15}, {n: "Nám. Kráľovnej pokoja", u: "Volgogradská ul.", min: 16}, {n: "VUKOV", u: "Volgogradská ul.", min: 17}, {n: "Centrum", u: "Prostějovská ul.", min: 18}, {n: "Prostějovská", u: "Prostějovská ul.", min: 19}, {n: "Bajkalská", u: "Bajkalská ul.", min: 20}, {n: "Veterinárna nem.", u: "Bajkalská ul.", min: 21}, {n: "Rázcestie Šidlovec", u: "Sabinovská ul.", min: 22}, {n: "Pod Skalkou", u: "Sabinovská ul.", min: 23}, {n: "Mičurinova", u: "Sabinovská ul.", min: 24}, {n: "Sabinovská, futbal aréna", u: "Sabinovská ul.", min: 25}, {n: "Duklianska", u: "Duklianska ul.", min: 26}, {n: "Šafárikova, cintorín", u: "Šafárikova ul.", min: 27}, {n: "Detská nemocnica", u: "Sládkovičova ul.", min: 28}, {n: "Fakultná nemocnica", u: "Hollého ul.", min: 29}];
+    const trasaL39_S3 = [{n: "Lomnická", u: "Švábska ul.", min: 0}, {n: "Švábska", u: "Švábska ul.", min: 1}, {n: "Chalupkova", u: "Košická ul.", min: 2}, {n: "Košická", u: "Košická ul.", min: 3}, {n: "Nový Solivar", u: "Košická ul.", min: 4}, {n: "Železničná stanica", u: "Masarykova ul.", min: 5}, {n: "Čierny most", u: "Masarykova ul.", min: 7}, {n: "Divadlo J. Záborského", u: "Grešova ul.", min: 9}, {n: "Na Hlavnej", u: "Hlavná ul.", min: 10}, {n: "Trojica", u: "Hlavná ul.", min: 12}, {n: "Futbal Tatran Aréna", u: "Čapajevova ul.", min: 15}, {n: "Jazdecká", u: "Mukačevská ul.", min: 16}, {n: "Mukačevská", u: "Mukačevská ul.", min: 17}, {n: "Centrum", u: "Prostějovská ul.", min: 18}, {n: "Prostějovská", u: "Prostějovská ul.", min: 19}, {n: "Sídlisko III", u: "Prostějovská ul.", min: 20}];
+    const trasaL39DJZ_S3 = [{n: "Divadlo J. Záborského", u: "Grešova ul.", min: 0}, {n: "Na Hlavnej", u: "Hlavná ul.", min: 1}, {n: "Trojica", u: "Hlavná ul.", min: 2}, {n: "Futbal Tatran Aréna", u: "Čapajevova ul.", min: 5}, {n: "Jazdecká", u: "Mukačevská ul.", min: 6}, {n: "Mukačevská", u: "Mukačevská ul.", min: 7}, {n: "Centrum", u: "Prostějovská ul.", min: 8}, {n: "Prostějovská", u: "Prostějovská ul.", min: 9}, {n: "Sídlisko III", u: "Prostějovská ul.", min: 16}];
+    const trasaL29_Nemocnica = [{n: "Sídlisko III", u: "Prostějovská ul.", min: 0}, {n: "Prostějovská", u: "Prostějovská ul.", min: 1}, {n: "Centrum", u: "Prostějovská ul.", min: 2}, {n: "VUKOV", u: "Volgogradská ul.", min: 4}, {n: "Nám. Kráľovnej pokoja", u: "Volgogradská ul.", min: 5}, {n: "Volgogradská", u: "Volgogradská ul.", min: 6}, {n: "Levočská", u: "Levočská ul.", min: 8}, {n: "Poliklinika", u: "Levočská ul.", min: 11}, {n: "Floriánova", u: "Floriánova ul.", min: 13}, {n: "Okružná", u: "Okružná ul.", min: 15}, {n: "Grešova", u: "Grešova ul.", min: 17}, {n: "Fakultná nemocnica", u: "Hollého ul.", min: 20}, {n: "Detská nemocnica", u: "Sládkovičova ul.", min: 21}];
+    const trasaL29_S3 = [{n: "Detská nemocnica", u: "Sládkovičova ul.", min: 0}, {n: "Dilongova", u: "Dilongova ul.", min: 1}, {n: "Sládkovičova", u: "Sládkovičova ul.", min: 2}, {n: "Moyzesova", u: "Moyzesova ul.", min: 3}, {n: "Divadlo J. Záborského", u: "Grešova ul.", min: 5}, {n: "Na Hlavnej", u: "Hlavná ul.", min: 6}, {n: "Trojica", u: "Hlavná ul.", min: 8}, {n: "Poliklinika", u: "Levočská ul.", min: 10}, {n: "Volgogradská", u: "Volgogradská ul.", min: 14}, {n: "Nám. Kráľovnej pokoja", u: "Volgogradská ul.", min: 15}, {n: "VUKOV", u: "Volgogradská ul.", min: 16}, {n: "Centrum", u: "Prostějovská ul.", min: 18}, {n: "Prostějovská", u: "Prostějovská ul.", min: 19}, {n: "Sídlisko III", u: "Prostějovská ul.", min: 20}];
+
     const trasaL5_OM = [{n: "Bajkalská", u: "Bajkalská ul.", min: 0}, {n: "Veterinárna nemocnica", u: "Bajkalská ul.", min: 1}, {n: "Rázcestie Šidlovec", u: "Sabinovská ul.", min: 2}, {n: "Pod Skalkou", u: "Sabinovská ul.", min: 3}, {n: "Mičurinova", u: "Sabinovská ul.", min: 4}, {n: "Sabinovská", u: "Sabinovská ul.", min: 5}, {n: "Trojica", u: "Hlavná ul.", min: 8}, {n: "Na Hlavnej", u: "Hlavná ul.", min: 10}, {n: "Veľká pošta", u: "Masarykova ul.", min: 12}, {n: "Čierny most", u: "Masarykova ul.", min: 13}, {n: "Škultétyho", u: "Škultétyho ul.", min: 15}, {n: "Prešovská univerzita", u: "Ul. 17. novembra", min: 16}, {n: "Duchnovičovo námestie", u: "Ul. 17. novembra", min: 17}, {n: "Námestie mládeže", u: "Obrancov mieru", min: 18}, {n: "Obrancov mieru", u: "Obrancov mieru", min: 19}];
     const trasaL5_BA = [{n: "Obrancov mieru", u: "Obrancov mieru", min: 0}, {n: "Námestie mládeže", u: "Obrancov mieru", min: 1}, {n: "Duchnovičovo námestie", u: "Ul. 17. novembra", min: 2}, {n: "Prešovská univerzita", u: "Ul. 17. novembra", min: 3}, {n: "Škultétyho", u: "Škultétyho ul.", min: 4}, {n: "Čierny most", u: "Masarykova ul.", min: 6}, {n: "Veľká pošta", u: "Masarykova ul.", min: 7}, {n: "Na Hlavnej", u: "Hlavná ul.", min: 9}, {n: "Trojica", u: "Hlavná ul.", min: 11}, {n: "Sabinovská", u: "Sabinovská ul.", min: 14}, {n: "Mičurinova", u: "Sabinovská ul.", min: 15}, {n: "Pod Skalkou", u: "Sabinovská ul.", min: 16}, {n: "Rázcestie Šidlovec", u: "Sabinovská ul.", min: 17}, {n: "Veterinárna nemocnica", u: "Bajkalská ul.", min: 18}, {n: "Bajkalská", u: "Bajkalská ul.", min: 19}];
-    
     const trasaL2_BUD = [{n: "Obrancov mieru", u: "Obrancov mieru", min: 0}, {n: "Poliklinika", u: "Levočská ul.", min: 2}, {n: "Trojica", u: "Hlavná ul.", min: 3}, {n: "Na Hlavnej", u: "Hlavná ul.", min: 5}, {n: "Divadlo J. Záborského", u: "Grešova ul.", min: 7}, {n: "Čierny most", u: "Masarykova ul.", min: 9}, {n: "Štúrova", u: "Štúrova ul.", min: 11}, {n: "Priemyselné centrum", u: "Budovateľská ul.", min: 12}, {n: "Pekárne", u: "Budovateľská ul.", min: 13}, {n: "Budovateľská", u: "Budovateľská ul.", min: 14}];
     const trasaL2_OM = [{n: "Budovateľská", u: "Budovateľská ul.", min: 0}, {n: "Pekárne", u: "Budovateľská ul.", min: 1}, {n: "Priemyselné centrum", u: "Budovateľská ul.", min: 2}, {n: "Štúrova", u: "Štúrova ul.", min: 3}, {n: "Čierny most", u: "Masarykova ul.", min: 5}, {n: "Divadlo J. Záborského", u: "Grešova ul.", min: 6}, {n: "Na Hlavnej", u: "Hlavná ul.", min: 7}, {n: "Trojica", u: "Hlavná ul.", min: 9}, {n: "Poliklinika", u: "Levočská ul.", min: 11}, {n: "Obrancov mieru", u: "Obrancov mieru", min: 13}];
-    
     const trasaL7_DP = [{n: "Budovateľská", u: "Budovateľská ul.", min: 0}, {n: "Pekárne", u: "Budovateľská ul.", min: 1}, {n: "Priemyselné centrum", u: "Budovateľská ul.", min: 2}, {n: "Štúrova", u: "Štúrova ul.", min: 3}, {n: "Čierny most", u: "Masarykova ul.", min: 5}, {n: "Divadlo J. Záborského", u: "Grešova ul.", min: 7}, {n: "Na Hlavnej", u: "Hlavná ul.", min: 8}, {n: "Trojica", u: "Hlavná ul.", min: 10}, {n: "Duklianska", u: "Duklianska ul.", min: 12}, {n: "Rázcestie Kúty", u: "Prešovská ul.", min: 14}, {n: "Dopravný podnik", u: "Bardejovská ul.", min: 20}];
 
-    const cestovnyPoriadok = [
+    // ==========================================
+    // 2. ZOZNAMY KURZOV (Tu pridávaj nové kurzy)
+    // ==========================================
+
+    const kurz_31_21 = [
+        { L: "#", smer: "Technologická jazda", odchod: "05:11", trasa: trasaG_Stanica },
+        { L: "43", smer: "P. Kalváriou - Nemocnica - V. Pošta", odchod: "05:16", trasa: trasaL43_Nemocnica },
+        { L: "#", smer: "Technologická jazda", odchod: "05:57", trasa: trasaNalepku_Stanica },
+        { L: "43", smer: "P. Kalváriou - Nemocnica", odchod: "06:16", trasa: trasaL43_Nem },
+        { L: "#", smer: "Technologická jazda", odchod: "06:45", trasa: trasaNemocnica_DJZ },
+        { L: "39", smer: "Sídlisko III", odchod: "07:24", trasa: trasaL39DJZ_S3 },
+        { L: "29", smer: "Nemocnica", odchod: "07:43", trasa: trasaL29_Nemocnica },
+        { L: "#", smer: "Technologická jazda", odchod: "08:04", trasa: trasaNemocnica_G },
+        { L: "#", smer: "Technologická jazda", odchod: "13:01", trasa: trasaG_S3 },
+        { L: "29", smer: "Nemocnica", odchod: "13:03", trasa: trasaL29_Nemocnica },
+        { L: "29", smer: "Sídlisko III", odchod: "13:25", trasa: trasaL29_S3 },
+        { L: "29", smer: "Nemocnica", odchod: "14:03", trasa: trasaL29_Nemocnica },
+        { L: "29", smer: "Sídlisko III", odchod: "14:25", trasa: trasaL29_S3 },
+        { L: "29", smer: "Nemocnica", odchod: "15:03", trasa: trasaL29_Nemocnica },
+        { L: "29", smer: "Sídlisko III", odchod: "15:25", trasa: trasaL29_S3 },
+        { L: "29", smer: "Nemocnica", odchod: "16:03", trasa: trasaL29_Nemocnica },
+        { L: "29", smer: "Sídlisko III", odchod: "16:25", trasa: trasaL29_S3 },
+        { L: "29", smer: "Nemocnica", odchod: "17:03", trasa: trasaL29_Nemocnica },
+        { L: "29", smer: "Sídlisko III", odchod: "17:25", trasa: trasaL29_S3 },
+        { L: "#", smer: "Technologická jazda", odchod: "17:46", trasa: trasaS3_G }
+    ];
+
+    const kurz_11_43 = [
         { L: "#", smer: "Technologická Jazda", odchod: "13:15", trasa: trasaNajazd },
         { L: "5", smer: "Obrancov mieru", odchod: "13:25", trasa: trasaL5_OM },
         { L: "2", smer: "Budovateľská", odchod: "13:44", trasa: trasaL2_BUD },
@@ -138,12 +179,16 @@
         { L: "#", smer: "Technologická Jazda", odchod: "21:55", trasa: trasaDojazd }
     ];
 
+    // ==========================================
+    // 3. LOGIKA PROGRAMU (Univerzálna)
+    // ==========================================
+
+    let cestovnyPoriadok = []; // Tu sa nahrá poriadok podľa prihlásenia
     let indexSpoja = 0; 
     let currentIndex = 0;
     let aktivnySpoj, zastavky, startTime;
     let povolenyPristup = false;
 
-    // --- FUNKCIA PRE AUTOMATICKÉ ZVÄČŠENIE ---
     function zvacsiPanel() {
         const frame = document.getElementById('mainFrame');
         if (!frame) return;
@@ -161,9 +206,19 @@
     function prihlasenie() {
         const l = localStorage.getItem('srg_linka');
         const p = localStorage.getItem('srg_poradie');
-        // Nastavené na kód 11/43
-        if (l === "11" && p === "43") {
+        
+        // --- DYNAMICKÝ VÝBER KURZU ---
+        if (l === "31" && p === "21") {
+            cestovnyPoriadok = kurz_31_21;
             povolenyPristup = true;
+        } 
+        else if (l === "11" && p === "43") {
+            cestovnyPoriadok = kurz_11_43;
+            povolenyPristup = true;
+        }
+        // Sem môžeš doplniť ďalšie kurzy pomocou else if...
+
+        if (povolenyPristup) {
             nacitajDataSpoja();
         } else {
             document.getElementById('direction').innerText = "NEPLATNÝ KURZ";
@@ -172,7 +227,7 @@
     }
 
     function nacitajDataSpoja() {
-        if (!povolenyPristup) return;
+        if (!povolenyPristup || cestovnyPoriadok.length === 0) return;
         aktivnySpoj = cestovnyPoriadok[indexSpoja];
         zastavky = aktivnySpoj.trasa;
         currentIndex = 0;
@@ -190,10 +245,12 @@
         document.getElementById('street-name').innerText = current.u;
         document.querySelector('.line-info').innerText = aktivnySpoj.L;
         document.querySelector('.stop-count').innerHTML = `<span>${currentIndex}</span>/${zastavky.length - 1}`;
+        
         document.getElementById('p1').innerText = currentIndex > 0 ? zastavky[currentIndex - 1].n : "-------";
         document.getElementById('p2').innerText = currentIndex > 1 ? zastavky[currentIndex - 2].n : "-------";
         document.getElementById('n1').innerText = currentIndex < zastavky.length - 1 ? zastavky[currentIndex + 1].n : "-------";
         document.getElementById('n2').innerText = currentIndex < zastavky.length - 2 ? zastavky[currentIndex + 2].n : "-------";
+        
         let step = 620 / (zastavky.length - 1 || 1);
         document.getElementById('marker').style.left = (170 + (currentIndex * step)) + "px";
         updateDelay();
@@ -225,6 +282,7 @@
         let s = Math.floor((absDiff % 60000) / 1000);
         const delayEl = document.getElementById('delay');
         delayEl.innerText = (diffMs < 0 ? "-" : "+") + String(m).padStart(2,'0') + ":" + String(s).padStart(2,'0');
+        
         if (diffMs > 0) {
             delayEl.style.color = (now.getSeconds() % 2 === 0) ? "#ffffff" : "#ff0000";
         } else {
@@ -246,3 +304,5 @@
 
     window.onload = prihlasenie;
 </script>
+</body>
+</html>
