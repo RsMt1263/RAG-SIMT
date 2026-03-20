@@ -104,65 +104,160 @@
 // 1. DEFINÍCIA TRÁS (Linky a Technológia)
 // ==========================================
 
-// Technologické jazdy
-const trasaG_Sibirska = [{n: "Garáž", u: "Bardejovská ul.", min: 0}, {n: "Sibírska", u: "Vihorlatská ul.", min: 5}];
-const trasaSalgovik_G = [{n: "Pod Šalgovíkom", u: "Vansovej ul.", min: 0}, {n: "Garáž", u: "Bardejovská ul.", min: 5}];
-const trasaG_Sidl_III = [{n: "Garáž", u: "Bardejovská ul.", min: 0}, {n: "Sídlisko III", u: "Prostějovská ul.", min: 17}];
-const trasaSalgovik_Sibirska = [{n: "Pod Šalgovíkom", u: "Vansovej ul.", min: 0}, {n: "Sibírska", u: "Vihorlatská ul.", min: 4}];
-const trasaSibirska_G = [{n: "Sibírska", u: "Vihorlatská ul.", min: 0}, {n: "Garáž", u: "Bardejovská ul.", min: 5}];
+// --- MANIPULAČNÉ TRASY A NÁJAZDY ---
 
-// Linka 34 (využívaná kurzom 31/21)
-const trasaL34_Sibirska_Sidl_III = [
-    {n: "Sibírska", u: "Vihorlatská ul.", min: 0}, {n: "Strojnická", u: "Strojnická ul.", min: 1}, {n: "Technická", u: "Technická ul.", min: 2}, {n: "Prúmyslová", u: "Technická ul.", min: 2}, {n: "Pod Šalgovíkom", u: "Vansovej ul.", min: 4}, {n: "Prúmyslová", u: "Technická ul.", min: 5}, {n: "Technická", u: "Technická ul.", min: 6}, {n: "Nákupní Zóna", u: "Zborovská ul.", min: 7}, {n: "Zborovská", u: "Zborovská ul.", min: 8}, {n: "Dopravný Podnik", u: "Evropská ul.", min: 9}, {n: "Evropská", u: "Evropská ul.", min: 10}, {n: "Heršpická Třída", u: "Heršpická Třída", min: 11}, {n: "U Školky", u: "Hornická ul.", min: 13}, {n: "U Kasáren", u: "Hornická ul.", min: 14}, {n: "Hornická", u: "Hornická ul.", min: 14}, {n: "Na Lukách", u: "Hornická ul.", min: 16}, {n: "Spojovací", u: "Pražská ul.", min: 17}, {n: "Na Rúžku", u: "Pražská ul.", min: 18}, {n: "Pražská", u: "Pražská ul.", min: 20}, {n: "Hlavní Nádraží", u: "Pivovarská ul.", min: 22}, {n: "Pivovarská", u: "Pivovarská ul.", min: 23}, {n: "Severní Předměstí", u: "Pivovarská ul.", min: 24}, {n: "Háje, Hypermarket", u: "Okružní ul.", min: 25}, {n: "V Osadách", u: "Okružní ul.", min: 26}, {n: "Okružní", u: "Okružní ul.", min: 27}, {n: "Václava Volfa", u: "Okružní ul.", min: 28}, {n: "U Pošty", u: "Burešova ul.", min: 29}, {n: "Sídlisko III", u: "Prostějovská ul.", min: 30}
+// Garáž -> Sídlisko III
+const trasa_Garaz_Sidlisko_III = [
+    {n: "Garáž", u: "Bardejovská ul.", min: 0},
+    {n: "Sídlisko III", u: "Prostějovská ul.", min: 2}
 ];
 
-const trasaL34_Sidl_III_Pod_Salgovikom = [
-    {n: "Sídlisko III", u: "Prostějovská ul.", min: 0}, {n: "U Pošty", u: "Burešova ul.", min: 1}, {n: "Václava Volfa", u: "Okružní ul.", min: 2}, {n: "Okružní", u: "Okružní ul.", min: 3}, {n: "V Osadách", u: "Okružní ul.", min: 4}, {n: "Háje, Hypermarket", u: "Okružní ul.", min: 5}, {n: "Severní Předměstí", u: "Pivovarská ul.", min: 6}, {n: "Pivovarská", u: "Pivovarská ul.", min: 7}, {n: "Hlavní Nádraží", u: "Pivovarská ul.", min: 8}, {n: "Pražská", u: "Pražská ul.", min: 10}, {n: "Na Rúžku", u: "Pražská ul.", min: 11}, {n: "Spojovací", u: "Pražská ul.", min: 12}, {n: "Na Lukách", u: "Hornická ul.", min: 14}, {n: "Hornická", u: "Hornická ul.", min: 15}, {n: "U Kasáren", u: "Hornická ul.", min: 16}, {n: "U Školky", u: "Heršpická Třída", min: 17}, {n: "Heršpická Třída", u: "Heršpická Třída", min: 18}, {n: "Evropská", u: "Evropská ul.", min: 20}, {n: "Dopravný Podnik", u: "Evropská ul.", min: 21}, {n: "Zborovská", u: "Zborovská ul.", min: 23}, {n: "Nákupní Zóna", u: "Zborovská ul.", min: 24}, {n: "Technická", u: "Technická ul.", min: 25}, {n: "Prúmyslová", u: "Technická ul.", min: 26}, {n: "Pod Šalgovíkom", u: "Vansovej ul.", min: 27}
+// Sídlisko III -> DJZ
+const trasa_Sidlisko_III_DJZ = [
+    {n: "Sídlisko III", u: "Prostějovská ul.", min: 0},
+    {n: "Divadlo Jonáša Záborského", u: "Námestie Legionárov", min: 10}
 ];
 
-const trasaL34_Pod_Salgovikom_Sidl_III = [
-    {n: "Pod Šalgovíkom", u: "Vansovej ul.", min: 0}, {n: "Prúmyslová", u: "Technická ul.", min: 1}, {n: "Technická", u: "Technická ul.", min: 2}, {n: "Nákupní Zóna", u: "Zborovská ul.", min: 3}, {n: "Zborovská", u: "Zborovská ul.", min: 4}, {n: "Dopravný Podnik", u: "Evropská ul.", min: 5}, {n: "Evropská", u: "Evropská ul.", min: 6}, {n: "Heršpická Třída", u: "Heršpická Třída", min: 7}, {n: "U Školky", u: "Hornická ul.", min: 9}, {n: "U Kasáren", u: "Hornická ul.", min: 10}, {n: "Hornická", u: "Hornická ul.", min: 10}, {n: "Na Lukách", u: "Hornická ul.", min: 12}, {n: "Spojovací", u: "Pražská ul.", min: 14}, {n: "Na Rúžku", u: "Pražská ul.", min: 15}, {n: "Pražská", u: "Pražská ul.", min: 17}, {n: "Hlavní Nádraží", u: "Pivovarská ul.", min: 19}, {n: "Pivovarská", u: "Pivovarská ul.", min: 20}, {n: "Severní Předměstí", u: "Pivovarská ul.", min: 21}, {n: "Háje, Hypermarket", u: "Okružní ul.", min: 22}, {n: "V Osadách", u: "Okružní ul.", min: 24}, {n: "Okružní", u: "Okružní ul.", min: 25}, {n: "Václava Volfa", u: "Okružní ul.", min: 26}, {n: "U Pošty", u: "Burešova ul.", min: 27}, {n: "Sídlisko III", u: "Prostějovská ul.", min: 28}
+// Sibírska -> Garáž
+const trasa_Sibirska_Garaz = [
+    {n: "Sibírska", u: "Vihorlatská ul.", min: 0},
+    {n: "Garáž", u: "Bardejovská ul.", min: 5}
 ];
 
-// Linka 32 (využívaná kurzom 31/21)
-const trasaL32A_Okruzna = [
-    {n: "Sibírska", u: "Vihorlatská ul.", min: 0}, {n: "SŠ Tech. a dopravní", u: "Lázeňská ul.", min: 1}, {n: "Městské Lázně", u: "Spolková ul.", min: 2}, {n: "U Lišky", u: "Spolková ul.", min: 3}, {n: "Aut. Nádraží Spolková", u: "Spolková ul.", min: 4}, {n: "Marie Sklodowské", u: "Ul. M. Sklodowské", min: 5}, {n: "Náměstí Osvobození", u: "Obchodní ul.", min: 7}, {n: "Obchodní", u: "Obchodní ul.", min: 8}, {n: "Karlovo Náměstí", u: "Obchodní ul.", min: 9}, {n: "Pražská", u: "Fibichova ul.", min: 11}, {n: "Fibichova", u: "Fibichova ul.", min: 12}, {n: "Nové Výstaviště", u: "Fibichova ul.", min: 13}, {n: "Okružná", u: "Okružná ul.", min: 15}
+// Garáž -> Kpt. Nálepku
+const trasa_Garaz_Kpt_Nalepku = [
+    {n: "Garáž", u: "Bardejovská ul.", min: 0},
+    {n: "Kapitána Nálepku", u: "Ul. Kpt. Nálepku", min: 7}
 ];
 
-const trasaL32_Sibirska = [
-    {n: "Okružná", u: "Okružná ul.", min: 0}, {n: "Nové Výstaviště", u: "Fibichova ul.", min: 1}, {n: "Fibichova", u: "Fibichova ul.", min: 2}, {n: "Pražská", u: "Fibichova ul.", min: 3}, {n: "U Viaduktu", u: "Obchodní ul.", min: 4}, {n: "Karlovo Náměstí", u: "Obchodní ul.", min: 5}, {n: "Obchodní", u: "Obchodní ul.", min: 6}, {n: "Náměstí Osvobození", u: "Obchodní ul.", min: 7}, {n: "Marie Sklodowské", u: "Ul. M. Sklodowské", min: 9}, {n: "Aut. Nádraží Spolková", u: "Spolková ul.", min: 10}, {n: "U Lišky", u: "Spolková ul.", min: 11}, {n: "Městské Lázně", u: "Spolková ul.", min: 13}, {n: "SŠ Tech. a dopravní", u: "Lázeňská ul.", min: 14}, {n: "Sibírska", u: "Vihorlatská ul.", min: 15}
+// Sídlisko III -> Garáž
+const trasa_Sidlisko_III_Garaz = [
+    {n: "Sídlisko III", u: "Prostějovská ul.", min: 0},
+    {n: "Garáž", u: "Bardejovská ul.", min: 1}
+];
+
+// Trojica -> Garáž
+const trasa_Trojica_Garaz = [
+    {n: "Trojica", u: "Hlavná ul.", min: 0},
+    {n: "Garáž", u: "Bardejovská ul.", min: 7}
+];
+
+// Garáž -> Šidlovec
+const trasa_Garaz_Sidlovec = [
+    {n: "Garáž", u: "Bardejovská ul.", min: 0},
+    {n: "Šidlovec", u: "Ul. K Okruhliaku", min: 15}
+];
+
+// Šidlovec <-> Kapitána Nálepku
+const trasa_Sidlovec_Kpt_Nalepku = [
+    {n: "Šidlovec", u: "Ul. K Okruhliaku", min: 0},
+    {n: "Kapitána Nálepku", u: "Ul. Kpt. Nálepku", min: 10}
+];
+const trasa_Kpt_Nalepku_Sidlovec = [
+    {n: "Kapitána Nálepku", u: "Ul. Kpt. Nálepku", min: 0},
+    {n: "Šidlovec", u: "Ul. K Okruhliaku", min: 10}
+];
+
+// Kapitána Nálepku -> Švábska
+const trasa_Kpt_Nalepku_Svabska = [
+    {n: "Kapitána Nálepku", u: "Ul. Kpt. Nálepku", min: 0},
+    {n: "Švábska", u: "Lomnická ul.", min: 12}
+];
+
+// Kapitána Nálepku -> Garáž
+const trasa_Kpt_Nalepku_Garaz = [
+    {n: "Kapitána Nálepku", u: "Ul. Kpt. Nálepku", min: 0},
+    {n: "Garáž", u: "Bardejovská ul.", min: 7}
+];
+
+// =========================================================
+// KOMPLETNÝ ZOZNAM TRÁS (L18, L22, L29, L39, L46, N2)
+// =========================================================
+
+// --- LINKA 18 ---
+const trasaL18_DJZ_Cemjata = [
+    {n: "Divadlo Jonáša Záborského", u: "Námestie Legionárov", min: 0}, {n: "Na Strahovce", u: "Ul. Na Strahovce", min: 1}, {n: "Velké náměstí", u: "Velké náměstí", min: 3}, {n: "Křižíkovy Sady", u: "Národní ul.", min: 4}, {n: "Peroutkova", u: "Městský Okruh", min: 5}, {n: "Hlavní Nádraží", u: "Nádražní ul.", min: 7}, {n: "Pražská", u: "Pražská ul.", min: 9}, {n: "Dukelská", u: "Dukelská ul.", min: 10}, {n: "Horní Náměstí", u: "Štaudingerova ul.", min: 11}, {n: "Štaudingerova", u: "Štaudingerova ul.", min: 12}, {n: "Antala Staška", u: "Štaudingerova ul.", min: 13}, {n: "Bělovarská", u: "Národní ul.", min: 14}, {n: "Brigádnická", u: "Republikánská ul.", min: 15}, {n: "Republikánská", u: "Republikánská ul.", min: 16}, {n: "Lázeňská", u: "Republikánska ul.", min: 17}, {n: "Cemjata", u: "Cesta 1/546", min: 18}
+];
+
+const trasaL18_Cemjata_Velka_Posta = [
+    {n: "Cemjata", u: "Cesta 1/546", min: 0}, {n: "Republikánská", u: "Republikánská ul.", min: 1}, {n: "Brigádnická", u: "Republikánská ul.", min: 2}, {n: "Bělovarská", u: "Národní ul.", min: 3}, {n: "Antala Staška", u: "Štaudingerova ul.", min: 4}, {n: "Štaudingerova", u: "Štaudingerova ul.", min: 5}, {n: "Horní Náměstí", u: "Štaudingerova ul.", min: 6}, {n: "Dukelská", u: "Dukelská ul.", min: 7}, {n: "Pražská", u: "Pražská ul.", min: 8}, {n: "Hlavní Nádraží", u: "Nádražní ul.", min: 11}, {n: "Peroutkova", u: "Městský Okruh", min: 12}, {n: "Křižíkovy Sady", u: "Národní ul.", min: 14}, {n: "Velké náměstí", u: "Velké náměstí", min: 15}, {n: "Na Strahovce", u: "Ul. Na Strahovce", min: 16}, {n: "Veľká Pošta", u: "Námestie Legionárov", min: 18}
+];
+
+// --- LINKA 22 ---
+const trasaL22_Sidlovec_Teriakovce = [
+    {n: "Šidlovec", u: "Ul. K Okruhliaku", min: 0}, {n: "Nové Výstaviště", u: "Fibichova ul.", min: 1}, {n: "Fibichova", u: "Fibichova ul.", min: 2}, {n: "Pražská", u: "Obchodní ul.", min: 3}, {n: "U Viaduktu", u: "Obchodní ul.", min: 4}, {n: "Karlovo Náměstí", u: "Obchodní ul.", min: 5}, {n: "Obchodní", u: "Obchodní ul.", min: 6}, {n: "Náměstí Osvobození", u: "Obchodní ul.", min: 7}, {n: "Marie Sklodowské", u: "Obchodní ul.", min: 8}, {n: "Autobusové Nádraží Spolková", u: "Spolková ul.", min: 10}, {n: "U Lišky", u: "Spolková ul.", min: 11}, {n: "Náměstí Míru", u: "Lázeňská ul.", min: 13}, {n: "SŠ Technická a Dopravní", u: "Lázeňská ul.", min: 14}, {n: "Pod Šalgovíkom", u: "Sekčovská ul.", min: 15}, {n: "Strojnická", u: "Strojnická ul.", min: 16}, {n: "Nákupní Zóna", u: "Zborovská ul.", min: 17}, {n: "Zborovská", u: "Zborovská ul.", min: 18}, {n: "Dopravní Podnik", u: "Evropská ul.", min: 19}, {n: "Evropská", u: "Ul. Na Odbočce", min: 20}, {n: "Na Odbočce", u: "Ul. Na Odbočce", min: 21}, {n: "Jižní Výpadovka", u: "Národní ul.", min: 22}, {n: "Šalgovík", u: "Sekčovská ul.", min: 23}, {n: "Heyrovského", u: "Národní ul.", min: 24}, {n: "Lidická", u: "Lidická ul.", min: 25}, {n: "Koprasy", u: "Lidická ul.", min: 26}, {n: "Teriakovce", u: "Hlavná ul.", min: 28}
+];
+
+const trasaL22_Teriakovce_Sidlovec = [
+    {n: "Teriakovce", u: "Hlavná ul.", min: 0}, {n: "Koprasy", u: "Lidická ul.", min: 1}, {n: "Lidická", u: "Lidická ul.", min: 2}, {n: "Heyrovského", u: "Národní ul.", min: 3}, {n: "Šalgovík", u: "Sekčovská ul.", min: 4}, {n: "Jižní Výpadovka", u: "Národní ul.", min: 5}, {n: "Na Odbočce", u: "Ul. Na Odbočce", min: 6}, {n: "Evropská", u: "Ul. Na Odbočce", min: 7}, {n: "Dopravní Podnik", u: "Evropská ul.", min: 8}, {n: "Zborovská", u: "Zborovská ul.", min: 9}, {n: "Nákupní Zóna", u: "Zborovská ul.", min: 10}, {n: "Strojnická", u: "Strojnická ul.", min: 11}, {n: "Pod Šalgovíkom", u: "Sekčovská ul.", min: 13}, {n: "SŠ Tech. a dopravní", u: "Lázeňská ul.", min: 14}, {n: "Městské Lázně", u: "Spolková ul.", min: 15}, {n: "U Lišky", u: "Spolková ul.", min: 16}, {n: "Aut. Nádraží Spolková", u: "Spolková ul.", min: 17}, {n: "Marie Sklodowské", u: "Ul. M. Sklodowské", min: 18}, {n: "Náměstí Osvobození", u: "Obchodní ul.", min: 20}, {n: "Obchodní", u: "Obchodní ul.", min: 21}, {n: "Karlovo Náměstí", u: "Obchodní ul.", min: 22}, {n: "Pražská", u: "Fibichova ul.", min: 24}, {n: "Fibichova", u: "Fibichova ul.", min: 25}, {n: "Nové Výstaviště", u: "Fibichova ul.", min: 26}, {n: "Šidlovec", u: "Ul. K Okruhliaku", min: 28}
+];
+
+// --- LINKA 29 ---
+const trasaL29_Sidlisko_III_Nemocnica = [
+    {n: "Sídlisko III", u: "Prostějovská ul.", min: 0}, {n: "Jířiho z Poděbrad", u: "Evropská ul.", min: 1}, {n: "Řeznická", u: "Řeznická ul.", min: 2}, {n: "Votická", u: "Votická ul.", min: 3}, {n: "Studentská", u: "Studentská ul.", min: 5}, {n: "Obchodní", u: "Obchodní ul.", min: 6}, {n: "Karlovo Náměstí", u: "Obchodní ul.", min: 7}, {n: "U Viaduktu", u: "Raichlova ul.", min: 8}, {n: "Hlavní Nádraží", u: "Nádražní ul.", min: 9}, {n: "Pivovarská", u: "Nádražní ul.", min: 10}, {n: "Severní Předm.", u: "Nádražní ul.", min: 11}, {n: "Háje, Hypermarket", u: "Okružní ul.", min: 13}, {n: "V Osadách", u: "Okružní ul.", min: 14}, {n: "Okružní", u: "Okružní ul.", min: 15}, {n: "Václava Volfa", u: "Okružní ul.", min: 16}, {n: "U Pošty", u: "Ul. Václava Volfa", min: 17}, {n: "Rolky", u: "Ul. Václava Volfa", min: 18}, {n: "Kvasnov, U Hřbitova", u: "Kvasnov", min: 19}, {n: "Nemocnica", u: "Šafárikova ul.", min: 21}
+];
+
+const trasaL29_Nemocnica_Sidlisko_III = [
+    {n: "Nemocnica", u: "Šafárikova ul.", min: 0}, {n: "Kvasnov, U Hřbitova", u: "Kvasnov", min: 1}, {n: "Rolky", u: "Ul. Václava Volfa", min: 2}, {n: "U Pošty", u: "Ul. Václava Volfa", min: 3}, {n: "Václava Volfa", u: "Okružní ul.", min: 4}, {n: "Okružní", u: "Okružní ul.", min: 5}, {n: "V Osadách", u: "Okružní ul.", min: 6}, {n: "Háje, Hypermarket", u: "Okružní ul.", min: 7}, {n: "Severní Předm.", u: "Nádražní ul.", min: 8}, {n: "Pivovarská", u: "Nádražní ul.", min: 9}, {n: "Hlavní Nádraží", u: "Nádražní ul.", min: 10}, {n: "U Viaduktu", u: "Raichlova ul.", min: 11}, {n: "Karlovo Náměstí", u: "Obchodní ul.", min: 12}, {n: "Obchodní", u: "Obchodní ul.", min: 13}, {n: "Studentská", u: "Studentská ul.", min: 15}, {n: "Votická", u: "Votická ul.", min: 16}, {n: "Řeznická", u: "Řeznická ul.", min: 17}, {n: "Jířiho z Poděbrad", u: "Evropská ul.", min: 18}, {n: "Sídlisko III", u: "Prostějovská ul.", min: 20}
+];
+
+// --- LINKA 39 ---
+const trasaL39_Sidlisko_III_Svabska = [
+    {n: "Sídlisko III", u: "Prostějovská ul.", min: 0}, {n: "Heršpická Třída", u: "Heršpická Třida", min: 1}, {n: "U Skolky", u: "Hornická ul.", min: 2}, {n: "Brňenská", u: "Brňenská ul.", min: 3}, {n: "Skuherskeho", u: "Skuherskeho ul.", min: 4}, {n: "Palmová", u: "Skuherskeho ul.", min: 5}, {n: "Zimní Stadion", u: "Palmová ul.", min: 6}, {n: "Dukelská", u: "Palmová ul.", min: 7}, {n: "Raichlova", u: "Raichlova ul.", min: 8}, {n: "U Viaduktu", u: "Raichlova ul.", min: 9}, {n: "Hlavní Nádraží", u: "Nádražní ul.", min: 11}, {n: "Pivovarská", u: "Nádražní ul.", min: 12}, {n: "Severní Předm.", u: "Nádražní ul.", min: 13}, {n: "Háje Sídlište", u: "Háje", min: 14}, {n: "Háje Rozcestí", u: "Háje", min: 15}, {n: "K Přehrade", u: "Darovanská ul.", min: 16}, {n: "Ke Skalce", u: "Darovanská ul.", min: 17}, {n: "Darovanská", u: "Darovanská ul.", min: 18}, {n: "Švábska", u: "Lomnická ul.", min: 20}
+];
+
+const trasaL39_Svabska_Sidlisko_III = [
+    {n: "Švábska", u: "Lomnická ul.", min: 0}, {n: "Darovanská", u: "Darovanská ul.", min: 1}, {n: "Ke Skalce", u: "Darovanská ul.", min: 2}, {n: "K Přehrade", u: "Darovanská ul.", min: 3}, {n: "Háje Rozcestí", u: "Háje", min: 4}, {n: "Háje Sídlište", u: "Háje", min: 5}, {n: "Severní Předm.", u: "Nádražní ul.", min: 6}, {n: "Pivovarská", u: "Nádražní ul.", min: 7}, {n: "Hlavní Nádraží", u: "Nádražní ul.", min: 8}, {n: "U Viaduktu", u: "Raichlova ul.", min: 10}, {n: "Raichlova", u: "Raichlova ul.", min: 11}, {n: "Dukelská", u: "Palmová ul.", min: 12}, {n: "Zimní Stadion", u: "Palmová ul.", min: 13}, {n: "Palmová", u: "Skuherskeho ul.", min: 14}, {n: "Skuherskeho", u: "Skuherskeho ul.", min: 15}, {n: "Brňenská", u: "Brňenská ul.", min: 16}, {n: "U Skolky", u: "Hornická ul.", min: 17}, {n: "Heršpická Třída", u: "Heršpická Třida", min: 18}, {n: "Sídlisko III", u: "Prostějovská ul.", min: 20}
+];
+
+// --- LINKA 46 ---
+const trasaL46_Velka_Posta_Ruska_Nova_Ves = [
+    {n: "Veľká Pošta", u: "Námestie Legionárov", min: 0}, {n: "U Černého Koně", u: "Ul. U Černého Koně", min: 1}, {n: "Autobusové nádraží", u: "Ul. U Černého Koně", min: 2}, {n: "Republikánska", u: "Republikánska ul.", min: 3}, {n: "Lázeňská", u: "Republikánska ul.", min: 4}, {n: "Jiřího z Poděbrad", u: "Evropská ul.", min: 6}, {n: "Evropská", u: "Evropská ul.", min: 7}, {n: "Heršpická Třída", u: "Heršpická Třida", min: 8}, {n: "Říční", u: "Říční ul.", min: 9}, {n: "Brňenská", u: "Brňenská ul.", min: 10}, {n: "U Kasáren", u: "Hornická ul.", min: 11}, {n: "Hornická", u: "Hornická ul.", min: 11}, {n: "Ruská Nová Ves", u: "Cesta 2/3441", min: 13}
+];
+
+const trasaL46_Ruska_Nova_Ves_Kpt_Nalepku = [
+    {n: "Ruská Nová Ves", u: "Cesta 2/3441", min: 0}, {n: "Hornická", u: "Hornická ul.", min: 0}, {n: "U Kasáren", u: "Hornická ul.", min: 1}, {n: "Brňenská", u: "Brňenská ul.", min: 2}, {n: "Říční", u: "Říční ul.", min: 3}, {n: "Heršpická Třída", u: "Heršpická Třida", min: 4}, {n: "Evropská", u: "Evropská ul.", min: 5}, {n: "Jiřího z Poděbrad", u: "Evropská ul.", min: 6}, {n: "Karolíny Světlé", u: "Kollárova ul.", min: 7}, {n: "Lázeňská", u: "Republikánska ul.", min: 8}, {n: "Republikánská", u: "Republikánska ul.", min: 9}, {n: "Autobusové nádraží", u: "Ul. U Černého Koně", min: 11}, {n: "U Černého Koně", u: "Ul. U Černého Koně", min: 12}, {n: "Kapitána Nálepku", u: "Ul. Kpt. Nálepku", min: 14}
+];
+
+// --- NOČNÁ LINKA N2 ---
+const trasaLN2_Na_Hlavnej_Sibirska = [
+    {n: "Na Hlavnej", u: "Hlavná ul.", min: 0}, {n: "Spolková", u: "Spolková ul.", min: 1}, {n: "Jana Bechera", u: "Spolková ul.", min: 2}, {n: "Rosenauerova", u: "Rosenauerova ul.", min: 3}, {n: "Veľká Pošta", u: "Námestie Legionárov", min: 4}, {n: "Čechova", u: "Čechova ul.", min: 5}, {n: "Jungmanova", u: "Moravská ul.", min: 6}, {n: "Mrázovka", u: "Moravská ul.", min: 7}, {n: "Modřanská", u: "Tovární ul.", min: 8}, {n: "Nové Zámky", u: "Ostrolovská ul.", min: 10}, {n: "Ostrolovská", u: "Ostrolovská ul.", min: 11}, {n: "Jungmanova", u: "Moravská ul.", min: 12}, {n: "Šeříková", u: "Moravská ul.", min: 13}, {n: "Na Míráku", u: "Morávska ul.", min: 14}, {n: "U Podlesíku", u: "Ul. Na Miráku", min: 15}, {n: "K Rybníku", u: "Sídliště Vřesiny", min: 16}, {n: "Nemocnice Vřesiny", u: "Strojnická ul.", min: 17}, {n: "Strojnická", u: "Strojnická ul.", min: 18}, {n: "Technická", u: "Technická ul.", min: 19}, {n: "Prúmyslová", u: "Technická ul.", min: 19}, {n: "Sibírska", u: "Vihorlatská ul.", min: 20}
 ];
 
 // ==========================================
 // 2. GRAFIKON KURZU 31/21
 // ==========================================
 
-const kurz_31_21 = [
-    // Ranná časť
-    { L: "#",  smer: "Technologická Jazda", odchod: "04:57", trasa: trasaG_Sibirska },
-    { L: "34", smer: "Sídlisko III", odchod: "05:02", trasa: trasaL34_Sibirska_Sidl_III },
-    { L: "34", smer: "Pod Šalgovíkom", odchod: "05:55", trasa: trasaL34_Sidl_III_Pod_Salgovikom },
-    { L: "34", smer: "Sídlisko III", odchod: "06:33", trasa: trasaL34_Pod_Salgovikom_Sidl_III },
-    { L: "34", smer: "Pod Šalgovíkom", odchod: "07:25", trasa: trasaL34_Sidl_III_Pod_Salgovikom },
-    { L: "#",  smer: "Technologická Jazda", odchod: "07:52", trasa: trasaSalgovik_G },
+const kurz_314_1 = [
+    // Odpoludňajšia a večerná časť
+    { L: "#",  smer: "Technologická Jazda", odchod: "13:01", trasa: trasa_Garaz_Sidlisko_III },
+    { L: "29", smer: "Nemocnica", odchod: "13:03", trasa: trasaL29_Sidlisko_III_Nemocnica },
+    { L: "29", smer: "Sídlisko III", odchod: "13:25", trasa: trasaL29_Nemocnica_Sidlisko_III },
+    { L: "39", smer: "Švábska", odchod: "13:47", trasa: trasaL39_Sidlisko_III_Svabska },
+    { L: "39", smer: "Sídlisko III", odchod: "14:08", trasa: trasaL39_Svabska_Sidlisko_III },
 
-    // Poobedňajšia časť
-    { L: "#",  smer: "Technologická Jazda", odchod: "13:08", trasa: trasaG_Sidl_III },
-    { L: "34", smer: "Pod Šalgovíkom", odchod: "13:25", trasa: trasaL34_Sidl_III_Pod_Salgovikom },
-    { L: "34", smer: "Sídlisko III", odchod: "14:03", trasa: trasaL34_Pod_Salgovikom_Sidl_III },
-    { L: "34", smer: "Pod Šalgovíkom", odchod: "14:55", trasa: trasaL34_Sidl_III_Pod_Salgovikom },
-    { L: "34", smer: "Sídlisko III", odchod: "15:33", trasa: trasaL34_Pod_Salgovikom_Sidl_III },
-    { L: "34", smer: "Pod Šalgovíkom", odchod: "16:25", trasa: trasaL34_Sidl_III_Pod_Salgovikom },
-    
-    // Prejazd a pomocné linky
-    { L: "#",  smer: "Technologická Jazda", odchod: "16:52", trasa: trasaSalgovik_Sibirska },
-    { L: "32A", smer: "Okružná - Trojica", odchod: "17:26", trasa: trasaL32A_Okruzna },
-    { L: "32",  smer: "Sibírska", odchod: "17:42", trasa: trasaL32_Sibirska },
-    { L: "32A", smer: "Okružná - Trojica", odchod: "18:06", trasa: trasaL32A_Okruzna },
-    { L: "32",  smer: "Sibírska", odchod: "18:22", trasa: trasaL32_Sibirska },
-    
-    // Záverečný dojazd
-    { L: "#",  smer: "Technologická Jazda", odchod: "18:37", trasa: trasaSibirska_G }
+    { L: "29", smer: "Nemocnica", odchod: "15:03", trasa: trasaL29_Sidlisko_III_Nemocnica },
+    { L: "29", smer: "Sídlisko III", odchod: "15:25", trasa: trasaL29_Nemocnica_Sidlisko_III },
+    { L: "39", smer: "Švábska", odchod: "15:47", trasa: trasaL39_Sidlisko_III_Svabska },
+    { L: "39", smer: "Sídlisko III", odchod: "16:08", trasa: trasaL39_Svabska_Sidlisko_III },
+
+    { L: "29", smer: "Nemocnica", odchod: "17:03", trasa: trasaL29_Sidlisko_III_Nemocnica },
+    { L: "29", smer: "Sídlisko III", odchod: "15:25", trasa: trasaL29_Nemocnica_Sidlisko_III },
+    { L: "39", smer: "Švábska", odchod: "17:47", trasa: trasaL39_Sidlisko_III_Svabska },
+    { L: "39", smer: "Sídlisko III", odchod: "18:08", trasa: trasaL39_Svabska_Sidlisko_III },
+
+    { L: "29", smer: "Nemocnica", odchod: "19:03", trasa: trasaL29_Sidlisko_III_Nemocnica },
+    { L: "29", smer: "Sídlisko III", odchod: "19:25", trasa: trasaL29_Nemocnica_Sidlisko_III },
+    { L: "39", smer: "Švábska", odchod: "19:47", trasa: trasaL39_Sidlisko_III_Svabska },
+    { L: "39", smer: "Sídlisko III", odchod: "20:08", trasa: trasaL39_Svabska_Sidlisko_III },
+
+    { L: "#",  smer: "Technologická Jazda", odchod: "21:11", trasa: trasa_Sidlisko_III_Kpt_Nalepku }, // Trasa medzi SIII a DJZ/Kpt. Nalepku
+    { L: "22", smer: "Šidlovec", odchod: "21:21", trasa: trasa_DJZ_Sidlovec }, 
+    { L: "22", smer: "Šalgovík", odchod: "21:37", trasa: trasaL22_Sidlovec_Salgovik },
+    { L: "22", smer: "Šidlovec", odchod: "22:08", trasa: trasaL22_Salgovik_Sidlovec },
+    { L: "22", smer: "Na Hlavnej - Sibírska", odchod: "22:36", trasa: trasaL22_Sidlovec_Na_Hlavnej },
+    { L: "N2", smer: "Sibírska", odchod: "22:44", trasa: trasaLN2_Na_Hlavnej_Sibirska },
+    { L: "#",  smer: "Technologická Jazda", odchod: "23:04", trasa: trasa_Sibirska_Garaz }
 ];
     // ==========================================
     // 3. LOGIKA PROGRAMU (Univerzálna)
